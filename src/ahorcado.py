@@ -15,7 +15,14 @@ from wordfreq import top_n_list
 import random
 
 
-def solicitar_palabra():
+def solicitar_palabra() -> str:
+    """Selecciona una palabra aleatoria de una lista de palabras frecuentes.
+
+    Returns
+    -------
+    str
+        Una palabra aleatoria en minúsculas.
+    """
     # "en" o "es" según idioma; 5000 -> tamaño de la lista de las más frecuentes
     words = top_n_list("es", 5000)  # cambia a "en" si quieres inglés
     candidates = [w for w in words if w.isalpha() and 4 <= len(w) <= 8]
@@ -23,6 +30,18 @@ def solicitar_palabra():
     return word
 
 def quitar_tildes(palabra: str) -> str:
+    """Reemplaza las vocales con tilde por vocales sin tilde.
+
+    Parameters
+    ----------
+    palabra : str
+        La palabra que puede contener tildes.
+
+    Returns
+    -------
+    str
+        La palabra sin tildes.
+    """
     palabra_lista = list(palabra)
     for posicion, caracter in enumerate(palabra):
         if caracter == 'Á':
@@ -41,17 +60,21 @@ def quitar_tildes(palabra: str) -> str:
 
 
 def solicitar_letra(letras_usadas: list[str]) -> str:
-    """
-    Solicita una letra al jugador 2
-    La letra debe ser válida (solo una letra) y no estar ya usada
-    
-    Args:
-        letras_usadas (list): Lista de letras ya introducidas
-        
-    Returns:
-        str: La letra introducida en mayúsculas
-    """
+    """Solicita una letra al jugador.
 
+    La letra debe ser válida (un solo carácter alfabético) y no debe
+    haber sido introducida previamente.
+
+    Parameters
+    ----------
+    letras_usadas : list[str]
+        Lista de letras que ya han sido utilizadas por el jugador.
+
+    Returns
+    -------
+    str
+        La letra introducida por el usuario, en mayúsculas.
+    """
     letra_usuario= ""
     while not letra_usuario.isalpha():
         letra_usuario = input(">> Introduce una letra: ").upper()
@@ -65,34 +88,40 @@ def solicitar_letra(letras_usadas: list[str]) -> str:
             letra_usuario = ""
     return letra_usuario
 
-def mostrar_estado(palabra_oculta, intentos, letras_usadas):
-    """
-    Muestra el estado actual del juego
-    
-    Args:
-        palabra_oculta (str): La palabra con _ y letras adivinadas
-        intentos (int): Número de intentos restantes
-        letras_usadas (list): Lista de letras ya usadas
-    """
+def mostrar_estado(palabra_oculta: str, intentos: int, letras_usadas: list[str]) -> None:
+    """Muestra el estado actual del juego.
 
+    Parameters
+    ----------
+    palabra_oculta : str
+        La palabra con guiones bajos y letras adivinadas.
+    intentos : int
+        Número de intentos fallidos hasta el momento.
+    letras_usadas : list[str]
+        Lista de letras que ya han sido utilizadas.
+    """
     print(f"Intentos restantes: {5 - intentos}")
     print(f"Palabra: {palabra_oculta}")
     print(f"Letras usadas: {letras_usadas}\n")
 
 
-def actualizar_palabra_oculta(palabra, palabra_oculta, letra):
-    """
-    Actualiza la palabra oculta revelando las apariciones de la letra
-    
-    Args:
-        palabra (str): La palabra completa a adivinar
-        palabra_oculta (str): La palabra actual con _ y letras adivinadas
-        letra (str): La letra que se ha adivinado
-        
-    Returns:
-        str: La palabra oculta actualizada
-    """
+def actualizar_palabra_oculta(palabra: str, palabra_oculta: str, letra: str) -> str:
+    """Actualiza la palabra oculta revelando las apariciones de la letra.
 
+    Parameters
+    ----------
+    palabra : str
+        La palabra completa a adivinar.
+    palabra_oculta : str
+        El estado actual de la palabra que se está adivinando.
+    letra : str
+        La letra que ha introducido el jugador.
+
+    Returns
+    -------
+    str
+        La palabra oculta actualizada con la letra revelada si es correcta.
+    """
     palabra_oculta_lista= list(palabra_oculta)
     for posicion, caracter in enumerate(palabra):
         if caracter == letra:
@@ -101,24 +130,22 @@ def actualizar_palabra_oculta(palabra, palabra_oculta, letra):
     palabra_oculta_actualizada = "".join(palabra_oculta_lista)
     return palabra_oculta_actualizada
 
-def jugar():
-    """
-    Función principal que ejecuta el juego del ahorcado
-    """
+def jugar() -> None:
+    """Función principal que ejecuta el juego del ahorcado."""
     print("=== JUEGO DEL AHORCADO ===\n")
-    
+
     # Configuración inicial
     INTENTOS_MAXIMOS = 5
-    
+
     palabra = solicitar_palabra().upper()
 
     palabra = quitar_tildes(palabra)
 
     palabra_oculta = "".join(["_" for _ in palabra])
     intentos = 0
-    letras_usadas= []
+    letras_usadas = []
     juego_terminado = False
-    
+
     print("¡Adivina la palabra!\n")
 
     while intentos != INTENTOS_MAXIMOS and juego_terminado != True:
@@ -143,10 +170,8 @@ def jugar():
         print(f"La palabra era: {palabra}")
 
 
-def main():
-    """
-    Punto de entrada del programa
-    """
+def main() -> None:
+    """Punto de entrada del programa. Inicia el juego y pregunta si se quiere jugar de nuevo."""
     jugar()
 
     jugar_otra_vez = input("\n¿Quieres jugar otra vez? (s/n): ")

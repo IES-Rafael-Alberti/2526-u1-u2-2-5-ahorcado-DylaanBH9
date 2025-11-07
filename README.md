@@ -150,3 +150,7 @@ Profesor: revilofe
 
 ## Licencia
 Material educativo para uso académico
+
+## Ejemplo de uso del debugger de Pycharm
+![Captura de pantalla del debugger de Pycharm](assets/img/ejDebug.png)
+
