@@ -152,5 +152,29 @@ Profesor: revilofe
 Material educativo para uso académico
 
 ## Ejemplo de uso del debugger de Pycharm
+### Cómo encontré el fallo con el depurador
+
+Me di cuenta de que el juego tenía un fallo: podía poner la misma letra incorrecta muchas veces y el programa no me avisaba. Yo creía que el problema era que la lista `letras_usadas` no se estaba guardando bien después de cada turno.
+
+Para comprobarlo, usé el depurador de mi editor de esta manera:
+
+1.  **Puse un punto de interrupción (breakpoint)** en la **línea 139**. Este es el sitio donde empieza cada turno, así que era perfecto para mirar qué estaba pasando con las variables.
+
+2.  **Empecé a depurar.** La primera vez que el programa se paró, me fijé en la variable `letras_usadas`. Estaba vacía `[]`, lo cual era normal al empezar.
+
+3.  **Le di a continuar** y jugué el primer turno.
+
+4.  El programa se paró otra vez en el mismo sitio. Miré de nuevo la variable `letras_usadas` y vi que **seguía vacía**. ¡Ahí estaba la prueba! La lista no se estaba actualizando.
+
+Al mirar las líneas de código justo después del punto de interrupción, vi que faltaba la línea `letras_usadas.append(letra)`.
 ![Captura de pantalla del debugger de Pycharm](assets/img/ejDebug.png)
+
+## Explicacion de la documentacion
+El código cuenta con la documentación estaba escrita en un estilo diferente (la de Google). Como pediste un cambio de tipo de documentacion, **cambié todo el estilo al de NumPy/SciPy**, que es el que se ve ahora.
+
+Un ejemplo del estilo NumPy/SciPy que he usado es este:
+
+https://github.com/IES-Rafael-Alberti/2526-u1-u2-2-5-ahorcado-DylaanBH9/blob/66c5ed1900d798bb0b62c593bd546249c0f887d9/src/ahorcado.py#L109-L124
+
+Lo más importante, como dice la teoría, es **elegir un estilo y usar siempre el mismo** en todo el proyecto.
 
