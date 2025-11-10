@@ -164,7 +164,7 @@ Para comprobarlo, usé el depurador de mi editor de esta manera:
 
 3.  **Le di a continuar** y jugué el primer turno.
 
-4.  El programa se paró otra vez en el mismo sitio. Miré de nuevo la variable `letras_usadas` y vi que **seguía vacía**. ¡Ahí estaba la prueba! La lista no se estaba actualizando.
+4.  El programa se paró otra vez en el mismo sitio. Miré de nuevo la variable `letras_usadas` y vi que **seguía vacía**. La lista no se estaba actualizando.
 
 Al mirar las líneas de código justo después del punto de interrupción, vi que faltaba la línea `letras_usadas.append(letra)`.
 ![Captura de pantalla del debugger de Pycharm](assets/img/ejDebug.png)
